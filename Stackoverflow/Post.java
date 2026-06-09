@@ -27,5 +27,30 @@ public class Post extends Content{
         }
     }
 
+    public synchronized void vote(User user,VoteType voteType){
+        String userId= user.getId();
+        if(voters.get(userId)==voteType)return;// Already voted
+
+        int scoreChange =0;
+        if(voters.containsKey(userId)){
+            scoreChange=(voteType==VoteType.UPVOTE? 2 : -2);
+        }else{
+            scoreChange=(voteType==VoteType.UPVOTE ? 1 :-1);
+        }
+
+        voters.put(userId,voteType);
+        voteCount.addAndGet(scoreChange);
+
+        EventType eventType=EventType.UPVOTE_QUESTION;
+
+        if(this instanceof Question){
+            eventType=(voteType==VoteType.UPVOTE ? EventType.UPVOTE_QUESTION : EventType.DOWNVOTE_QUESTION);
+        }else{
+            eventType =(voteType==VoteType.UPVOTE ? EventType.UPVOTE_ANSWER:EventType.DOWN_ANSWER);
+        }
+
+        notifyObserver(new Event(eventType,user,this));
+    }
+
 
 }
