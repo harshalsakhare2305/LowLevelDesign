@@ -8,14 +8,14 @@ public class User {
     private String name;
     private AtomicInteger reputation;
 
-    public User(String name){
-        this.id= UUID.randomUUID().toString();
-        this.name=name;
-        this.reputation=new AtomicInteger(0);
+    public User(String name) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.reputation = new AtomicInteger(0);
     }
 
-    public void updateReputation(int change){
-
+    public void updateReputation(int change) {
+        this.reputation.addAndGet(change);
     }
 
     public String getName() {

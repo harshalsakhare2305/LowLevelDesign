@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Post extends Content{
+public abstract class Post extends Content{
     private AtomicInteger voteCount=new AtomicInteger(0);
     private  Map<String,VoteType> voters =new ConcurrentHashMap<>();
     private  List<Comment> comments =new ArrayList<>();
