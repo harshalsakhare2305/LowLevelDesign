@@ -25,7 +25,7 @@ public class Question extends Post{
         if(!this.author.getId().equals(ans.getAuthor().getId()) && this.acceptedAnswer==null){
             this.acceptedAnswer=ans;
             ans.setAccepted(true);
-            notifyObserver(new Event(EventType.ACCEPT_ANSWER,ans.getAuthor(),answer));
+            notifyObserver(new Event(EventType.ACCEPT_ANSWER,ans.getAuthor(),ans));
         }
     }
 
